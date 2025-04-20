@@ -270,6 +270,19 @@ ALTER TABLE `product`
 ALTER TABLE `product_category`
   ADD CONSTRAINT `product_category_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`),
   ADD CONSTRAINT `product_category_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`);
+
+-- customed by the owner
+alter table users drop column user_is_admin;
+create table admin(
+    admin_id int(11) primary key not null,
+    admin_name varchar(100) not null,
+    admin_email varchar(100) not null,
+    admin_password varchar(100) not null
+);
+alter table product add column created_by_admin_id int(11);
+alter table product add foreign key (created_by_admin_id) references admin(admin_id);
+
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
