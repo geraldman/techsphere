@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2025 at 12:53 PM
+-- Generation Time: Apr 20, 2025 at 06:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -35,6 +35,19 @@ CREATE TABLE `address` (
   `address_postal_code` int(6) NOT NULL,
   `address_city` varchar(100) NOT NULL,
   `address_country` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `admin_id` int(11) NOT NULL,
+  `admin_name` varchar(100) NOT NULL,
+  `admin_email` varchar(100) NOT NULL,
+  `admin_password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -103,7 +116,8 @@ CREATE TABLE `product` (
   `product_stock_quantity` int(5) DEFAULT NULL,
   `product_sold_quantity` int(5) DEFAULT NULL,
   `product_price` decimal(10,2) DEFAULT NULL,
-  `product_image_url` text DEFAULT NULL
+  `product_image_url` text DEFAULT NULL,
+  `created_by_admin_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -128,7 +142,6 @@ CREATE TABLE `users` (
   `user_name` varchar(100) NOT NULL,
   `user_email` varchar(100) NOT NULL,
   `user_phone_number` bigint(20) DEFAULT NULL,
-  `user_is_admin` tinyint(1) NOT NULL,
   `user_password` varchar(100) NOT NULL,
   `user_gender` enum('M','F') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -142,6 +155,12 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `address`
   ADD PRIMARY KEY (`user_id`,`user_address_name`);
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`admin_id`);
 
 --
 -- Indexes for table `cart`
@@ -177,7 +196,8 @@ ALTER TABLE `order_product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`),
-  ADD KEY `product_category_id` (`product_category_id`);
+  ADD KEY `product_category_id` (`product_category_id`),
+  ADD KEY `created_by_admin_id` (`created_by_admin_id`);
 
 --
 -- Indexes for table `product_category`
@@ -262,7 +282,8 @@ ALTER TABLE `order_product`
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`product_category_id`) REFERENCES `categories` (`category_id`);
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`product_category_id`) REFERENCES `categories` (`category_id`),
+  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`created_by_admin_id`) REFERENCES `admin` (`admin_id`);
 
 --
 -- Constraints for table `product_category`
@@ -270,19 +291,6 @@ ALTER TABLE `product`
 ALTER TABLE `product_category`
   ADD CONSTRAINT `product_category_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`),
   ADD CONSTRAINT `product_category_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`);
-
--- customed by the owner
-alter table users drop column user_is_admin;
-create table admin(
-    admin_id int(11) primary key not null,
-    admin_name varchar(100) not null,
-    admin_email varchar(100) not null,
-    admin_password varchar(100) not null
-);
-alter table product add column created_by_admin_id int(11);
-alter table product add foreign key (created_by_admin_id) references admin(admin_id);
-
-
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
