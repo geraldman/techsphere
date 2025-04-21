@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2025 at 08:18 PM
+-- Generation Time: Apr 21, 2025 at 02:47 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `techsphere_new`
+-- Database: `tech_sphere`
 --
 
 -- --------------------------------------------------------
@@ -172,24 +172,6 @@ CREATE TABLE `product` (
   `adaptive_sync` varchar(50) DEFAULT NULL,
   `compatibility_notes` text DEFAULT NULL,
   `included_accessories` text DEFAULT NULL,
-  `product_socket` varchar(50) DEFAULT NULL,
-  `product_form_factor` varchar(50) DEFAULT NULL,
-  `product_speed` varchar(50) DEFAULT NULL,
-  `product_capacity` varchar(50) DEFAULT NULL,
-  `product_interface` varchar(50) DEFAULT NULL,
-  `product_wattage` varchar(50) DEFAULT NULL,
-  `product_efficiency_rating` varchar(50) DEFAULT NULL,
-  `product_chipset` varchar(50) DEFAULT NULL,
-  `product_memory_type` varchar(50) DEFAULT NULL,
-  `product_core_count` int(11) DEFAULT NULL,
-  `product_thread_count` int(11) DEFAULT NULL,
-  `product_clock_speed` varchar(50) DEFAULT NULL,
-  `product_boost_clock` varchar(50) DEFAULT NULL,
-  `product_tdp` varchar(50) DEFAULT NULL,
-  `product_resolution` varchar(50) DEFAULT NULL,
-  `product_refresh_rate` varchar(50) DEFAULT NULL,
-  `product_response_time` varchar(50) DEFAULT NULL,
-  `product_compatibility_notes` text DEFAULT NULL,
   `product_description` text DEFAULT NULL,
   `product_stock_quantity` int(5) DEFAULT NULL,
   `product_sold_quantity` int(5) DEFAULT NULL,
@@ -344,4 +326,4 @@ COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */; 
